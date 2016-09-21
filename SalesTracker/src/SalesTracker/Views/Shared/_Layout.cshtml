@@ -3,10 +3,18 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
+    <link href="~/bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
     <title>@ViewBag.Title</title>
 </head>
 <body>
     <div>
+        <nav class="navbar navbar-default container-fluid">
+            <ul>
+                <li><a href="/">Home</a> </li>
+                <li><a href="/account/role">Role</a></li>
+            </ul>
+        </nav>
+
         @RenderBody()
     </div>
 </body>

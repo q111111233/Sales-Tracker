@@ -8,7 +8,9 @@ using SalesTracker.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+
 
 namespace SalesTracker.Controllers
 {
@@ -26,12 +28,17 @@ namespace SalesTracker.Controllers
             _signInManager = signInManager;
             _db = db;
         }
-
         public IActionResult Index()
         {
-
             return View();
         }
+        //public async Task<IActionResult> Index()
+        //{
+        //    var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        //    var currentUser = await _userManager.FindByIdAsync(userId);
+        //   ViewBag.roles = _db.UserRoles.Where(i=>i.UserId == currentUser.Id).ToList();
+        //    return View();
+        //}
         public IActionResult Register()
         {
             return View();
@@ -144,17 +151,9 @@ namespace SalesTracker.Controllers
         {
             var user = _db.Users.Where(u => u.UserName.Equals(UserName, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
             IdentityResult result = await _userManager.AddToRoleAsync(user, RoleName);
-
-            if (result.Succeeded)
-            {
-                return RedirectToAction("Role", "Account");
-            }
-            else
-            {
-                var list = _db.Roles.OrderBy(r => r.Name).ToList().Select(rr => new SelectListItem { Value = rr.Name.ToString(), Text = rr.Name }).ToList();
-                ViewBag.Roles = list;
-                return View();
-            }
+            
+            
+            return RedirectToAction("Role", "Account");
         }
     }
 }

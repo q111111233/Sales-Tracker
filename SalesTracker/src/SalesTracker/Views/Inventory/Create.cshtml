@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Add new item</h2>
+<div>
+    <form action="/Inventory/Create" method="post">
+        <div>
+            <label for="item">Item Name</label>
+            <input id="item" name="item" type="text"/>
+        </div>
+        <div>
+            <label for="unit">Units</label>
+            <input id="unit" name="unit" type="number" />
+        </div>
+        <div>
+            <label for="cost">Cost per Unit</label>
+            <input id="cost" name="cost" type="text" />
+        </div>
+        <div>
+            <label for="salePrice">Suggested Sale Price</label>
+            <input id="salePrice" name="salePrice" type="text" />
+        </div>
+        <div>
+            <button type="submit" class="btn btn-info">Add Item to Inventory</button>
+        </div>
+    </form>
+</div>

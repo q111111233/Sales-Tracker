@@ -1,0 +1,9 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model IAsyncEnumerable<SalesTracker.Models.Inventory>
+
+<h2>List of items</h2>
+
+<p>@Html.ActionLink("New Inventory", "Create")</p>
