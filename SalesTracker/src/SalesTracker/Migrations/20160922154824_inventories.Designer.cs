@@ -8,9 +8,10 @@ using SalesTracker.Models;
 namespace SalesTracker.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20160922154824_inventories")]
+    partial class inventories
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.0-rtm-21431")
@@ -194,34 +195,6 @@ namespace SalesTracker.Migrations
                     b.ToTable("Inventories");
                 });
 
-            modelBuilder.Entity("SalesTracker.Models.Transaction", b =>
-                {
-                    b.Property<int>("TransactionId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Comment");
-
-                    b.Property<int>("Commission");
-
-                    b.Property<int>("InventoryId");
-
-                    b.Property<int>("Return");
-
-                    b.Property<int>("Revenue");
-
-                    b.Property<int>("UnitSold");
-
-                    b.Property<string>("UserId");
-
-                    b.HasKey("TransactionId");
-
-                    b.HasIndex("InventoryId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Transactions");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole")
@@ -261,18 +234,6 @@ namespace SalesTracker.Migrations
 
             modelBuilder.Entity("SalesTracker.Models.Inventory", b =>
                 {
-                    b.HasOne("SalesTracker.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("SalesTracker.Models.Transaction", b =>
-                {
-                    b.HasOne("SalesTracker.Models.Inventory", "Inventory")
-                        .WithMany("Transactions")
-                        .HasForeignKey("InventoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("SalesTracker.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");

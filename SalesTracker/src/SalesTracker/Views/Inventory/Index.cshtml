@@ -4,6 +4,64 @@
 }
 @model IAsyncEnumerable<SalesTracker.Models.Inventory>
 
-<h2>List of items</h2>
+
+<form action="RandomList" class="display-random-database-items">
+    <label for="count">How many destinations would you like to see?</label>
+    <input type="number" name="count" />
+    <button type="submit">Submit</button>
+</form>
+<div id="result3"></div>
+
+<h2>Submitting data with a POST request</h2>
+<form action="NewInventory" class="new-inventory">
+    <label for="newUnit">Unit: </label>
+    <input type="number" name="newUnit" class="clear-input"/>
+    <label for="newItem">Item: </label>
+    <input type="text" name="newItem" class="clear-input"/>
+    <label for="newCost">Cost: </label>
+    <input type="number" name="newCost" class="clear-input"/>
+    <label for="newSalePrice">SalePrice: </label>
+    <input type="number" name="newSalePrice" class="clear-input"/>
+    <button type="submit">Submit</button>
+</form>
+<div id="result6"></div>
+<form id="inventoryUpdate">Update Inventory</form>
 
 <p>@Html.ActionLink("New Inventory", "Create")</p>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.display-random-database-items').submit(function () {
+            event.preventDefault();
+            $.ajax({
+                type: 'GET',
+                data: $(this).serialize(),
+                dataType: 'json',
+                url: '@Url.Action("RandomList")',
+                success: function (result) {
+                    var resultString = '<ul>';
+                    for (var i = 0; i < result.length; i++) {
+                        resultString += '<li>' + 'Id: ' + result[i].inventoryId + '<br>unit: ' + result[i].unit + '<br>cost: ' + result[i].cost + '<br>Item: ' + result[i].item + '<br>salePrice: ' + result[i].salePrice + '</li>';
+                    }
+                    resultString += '</ul>';
+                    $('#result3').html(resultString);
+                }
+            });
+        });
+        $('.new-inventory').submit(function (event) {
+            event.preventDefault();
+
+            $.ajax({
+                url: '@Url.Action("NewInventory")',
+                type: 'POST',
+                dataType: 'json',
+                data: $(this).serialize(),
+                success: function (result) {
+                    var resultMessage = 'You\'ve added a new inventory to the database!<br>InventoryId: ' + result.inventoryId + '<br>Unit: ' + result.unit + '<br>Item: ' + result.item + '<br>Cost: ' + result.cost + '<br>SalePrice: ' + result.salePrice;
+                    $('#result6').html(resultMessage);
+                }
+            });
+            $('.clear-input').val("");
+        });
+    });
+</script>

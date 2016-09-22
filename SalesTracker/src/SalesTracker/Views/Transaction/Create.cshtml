@@ -2,34 +2,16 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@model IAsyncEnumerable<SalesTracker.Models.Inventory>
+@model SalesTracker.Models.Transaction
 
 <h2>Add new sale</h2>
-<div>
-    <form action="/Transaction/Create">
-        <div>
-            <label for="unitSold">Unit Sold</label>
-            <input id="unitSold" name="unitSold" type="number" />
-        </div>
-        <div>
-            <label for="revenue">Sale Amount</label>
-            <input id="revenue" name="revenue" type="number" />
-        </div>
-        <div>
-            <label for="return">Return</label>
-            <input id="return" name="return" type="number" />
-        </div>
-        <div>
-            <label for="comment">Comment</label>
-            <input id="comment" name="comment" type="text" />
-        </div>
-        <select>
-            @foreach (var item in Model)
-            {
-                <option value="@item.InventoryId">@item.Item</option>
-            }
-            
-        </select>
-        <button type="submit" class="btn btn-success">Add Sales</button>
-    </form>
-</div>
+@using (Html.BeginForm())
+{
+    @Html.LabelFor(model => model.UnitSold)
+    @Html.EditorFor(model => model.UnitSold)
+
+    @Html.LabelFor(model => model.InventoryId)
+    @Html.DropDownList("InventoryId")
+
+    <input type="submit" value="Create" class="btn btn-default" />
+}

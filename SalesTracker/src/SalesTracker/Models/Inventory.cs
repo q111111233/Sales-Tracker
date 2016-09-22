@@ -18,6 +18,19 @@ namespace SalesTracker.Models
 
         public int SalePrice { get; set; } 
 
+        public virtual ICollection<Transaction> Transactions { get; set; }
         public virtual ApplicationUser User { get; set; }
+        public Inventory(int unit, string item, int cost, int salePrice, int inventoryId = 0)
+        {
+            Unit = unit;
+            Item = item;
+            Cost = cost;
+            SalePrice = salePrice;
+            InventoryId = inventoryId;
+        }
+
+        public Inventory()
+        {
+        }
     }
 }

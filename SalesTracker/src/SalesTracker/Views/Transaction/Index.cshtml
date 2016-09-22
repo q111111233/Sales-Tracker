@@ -2,10 +2,14 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@model IAsyncEnumerable<SalesTracker.Models.Transaction>
+
 @using System.Security.Claims
 <h2>Sales made by @User.Identity.Name</h2>
-
+@foreach (var sale in Model)
+{
+    <li> @sale.Inventory.Cost</li>
+}
+@model IEnumerable<SalesTracker.Models.Transaction>
 <h2>Commission made by @User.Identity.Name</h2>
 
 <p>@Html.ActionLink("Add New Sales", "Create")</p>
